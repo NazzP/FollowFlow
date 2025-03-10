@@ -55,9 +55,3 @@ Make sure you have the following installed:
 
 - **Which specific prompts did you learn as a good practice to complete the task?**: 
   I learned that using specific prompts like "Generate a CRUD API with Spring Boot" and "How to configure Hibernate with PostgreSQL" yields better results. Additionally, asking for explanations of concepts (like lazy vs. eager loading in Hibernate) helped me understand the underlying workings better while implementing them in the project.
-
-### Cloning the Repository
-
-```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
