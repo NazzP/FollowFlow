@@ -8,16 +8,14 @@ import org.example.followflow.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Transactional
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestAppConfig.class)
-@DataJpaTest
 public class LikeRepositoryTest {
 
     @Autowired
@@ -30,9 +28,7 @@ public class LikeRepositoryTest {
     private PostRepository postRepository;
 
     @Test
-    @Transactional
-    @Rollback
-    public void testSaveLike() {
+    void testSaveLike() {
         User user = new User();
         user.setUsername("user");
         user.setPassword("password");
@@ -53,9 +49,7 @@ public class LikeRepositoryTest {
     }
 
     @Test
-    @Transactional
-    @Rollback
-    public void testCountLikesForPost() {
+    void testCountLikesForPost() {
         User user = new User();
         user.setUsername("user");
         user.setPassword("password");
