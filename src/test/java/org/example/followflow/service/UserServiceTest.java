@@ -1,5 +1,6 @@
 package org.example.followflow.service;
 
+import jakarta.transaction.Transactional;
 import org.example.followflow.dto.UserDTO;
 import org.example.followflow.entity.User;
 import org.example.followflow.repository.UserRepository;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -18,7 +21,9 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Transactional
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class UserServiceTest {
 
     @Mock

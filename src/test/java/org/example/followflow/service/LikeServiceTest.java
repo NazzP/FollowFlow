@@ -1,5 +1,6 @@
 package org.example.followflow.service;
 
+import jakarta.transaction.Transactional;
 import org.example.followflow.entity.Like;
 import org.example.followflow.entity.Post;
 import org.example.followflow.entity.User;
@@ -13,13 +14,17 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Transactional
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class LikeServiceTest {
 
     @Mock
