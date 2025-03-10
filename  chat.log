@@ -1,0 +1,2591 @@
+I would like to develop a Java application using RESTful API for a simple social media application with Spring Boot, Hibernate, and PostgreSQL. The application should allow users to create and view posts, follow other users, and like posts. Each post should have a title, body, and author. Use Hibernate to persist the post and user data in the database.
+Please provide a set of technologies and frameworks required to develop such an application.
+Create a list of tasks with examples of prompts I can ask you for each task to get relevant examples.
+
+To develop a Java application for a simple social media platform using Spring Boot, Hibernate, and PostgreSQL, you’ll need a set of technologies and frameworks, as well as a well-defined list of tasks with prompts. Here's a breakdown of both:
+Technologies and Frameworks
+
+    Spring Boot: Simplifies the setup and development of new Spring applications.
+    Hibernate: For ORM (Object-Relational Mapping) to interact with the database.
+    PostgreSQL: The relational database to store user and post data.
+    Spring Data JPA: For data access using JPA repositories.
+    Spring Security (optional): For handling authentication and authorization.
+    Maven or Gradle: For project management and dependency handling.
+    Thymeleaf or Angular/React (optional): For the front-end if you want to allow users to interact with the application through a UI.
+    JUnit: For unit testing your application.
+    Postman or cURL: For testing the RESTful APIs.
+
+List of Tasks with Example Prompts
+
+    Project Setup
+        Prompt: "How do I set up a new Spring Boot project with Maven and include dependencies for Spring Web, Spring Data JPA, and PostgreSQL?"
+
+    Database Configuration
+        Prompt: "How do I configure PostgreSQL as the database in my Spring Boot application, and how can I set up the application.properties file for that?"
+
+    Creating the User and Post Entities
+        Prompt: "Can you provide an example of a User and Post entity class using Hibernate annotations?"
+
+    Setting Up Repositories
+        Prompt: "How do I create Spring Data JPA repositories for User and Post entities?"
+
+    Developing REST Controllers
+        Prompt: "Can you show me an example of a REST controller for creating and retrieving posts?"
+
+    Implementing User Follow Functionality
+        Prompt: "How can I implement functionality for users to follow other users in my application?"
+
+    Liking a Post
+        Prompt: "What is the best way to implement a like feature for posts in a RESTful application?"
+
+    Handling Security and Authentication
+        Prompt: "How can I use Spring Security to secure my API endpoints and handle user authentication?"
+
+    Exception Handling in REST API
+        Prompt: "How can I implement a global exception handler in my Spring Boot application?"
+
+    Testing the API with Postman
+
+    Prompt: "How do I use Postman to test my RESTful APIs?"
+
+    Writing Unit Tests
+
+    Prompt: "Can you provide an example of writing unit tests for the REST controllers in my Spring Boot application?"
+
+    Deploying the Application
+
+    Prompt: "What are some options for deploying my Spring Boot application to a cloud service like AWS or Heroku?"
+
+    Improving Performance
+
+    Prompt: "What are some tips for optimizing the performance of my Spring Boot application?"
+
+Example Prompt Responses
+
+Here’s an overview of how responses to some of these prompts might look:
+
+    Project Setup:
+
+    bash
+
+mvn archetype:generate -DgroupId=com.example -DartifactId=socialmedia -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+Then, add dependencies in pom.xml for Spring Boot, Data JPA, and PostgreSQL.
+
+Database Configuration:
+
+properties
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/socialmedia
+spring.datasource.username=yourusername
+spring.datasource.password=yourpassword
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+User and Post Entities:
+
+java
+
+    @Entity
+    public class User {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+        private String username;
+        private String password;
+        // Getters and setters
+    }
+
+    @Entity
+    public class Post {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+        private String title;
+        private String body;
+        @ManyToOne
+        @JoinColumn(name = "user_id", nullable = false)
+        private User author;
+        // Getters and setters
+    }
+
+With these tasks and example prompts, you should be able to develop your social media application efficiently, learning and implementing each component step-by-step.
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+how to name this app ?
+
+Naming your social media application can be an important and creative step. A good name should be memorable, relevant to the app's purpose, and ideally a little unique. Here are some tips and considerations for naming your app, along with a list of potential names you might consider:
+Tips for Naming Your App
+
+    Relevance: Choose a name that reflects the core functionality or theme of the application. Think about social interactions, posts, or community-building concepts.
+
+    Simplicity: Aim for a name that is simple, easy to spell, and easy to remember. Avoid overly complicated words.
+
+    Uniqueness: Ensure the name isn't already in use by checking domain availability, social media handles, and trademarks.
+
+    Audience: Think about your target audience. A name that's appealing to a younger audience may differ from one that targets professionals or niche communities.
+
+    Short and Sweet: Short names are often easier to remember and type.
+
+Potential Names for Your Social Media Application
+
+    PostSphere: Suggests a community-centered around sharing posts.
+    ConnectNest: Implies a place for connecting with others, like a nest of friends and followers.
+    SocialEcho: Reflects the idea that social interactions create echoes of conversations and content.
+    Chirp: A simple and fun name suggesting short messages and quick interactions.
+    VibeHub: Conveys a sense of community and positive interactions.
+    FollowFlow: Highlights the act of following and interacting fluidly.
+    ShareSpace: Indicates a digital space dedicated to sharing posts and thoughts.
+    LinkUp: Represents connecting with others and forming networks.
+    BuddyPosts: Suggests a friendly atmosphere where users can post and engage.
+    PulseFeed: Reflects the current pulse or heartbeat of what's trending among users.
+    PostLink: A straightforward name emphasizing posts and connections.
+    SocialCanvas: Suggests a space where users can paint their stories through posts.
+    EchoChamber: A playful but reflective name denoting a space for opinions, although be cautious as this term has specific connotations.
+    BuzzBoard: Implying a place where exciting posts and interactions happen.
+
+Testing and Finalizing the Name
+
+Once you have a few names you like, consider testing them:
+
+    Feedback: Get opinions from potential users, friends, or family. Ask them what names resonate with them or what they think each name implies.
+    Domain Availability: Check if the domain name is available for your selected names. Services like GoDaddy or Namecheap can help with this.
+    Social Media Handles: Ensure that the name is available on major social media platforms if you plan to promote your app there.
+
+Ultimately, choose a name that feels right to you and aligns with the vision you have for your application. Good luck!
+Can u also Setting Up Repositories and also implement user Follow Functionality
+
+Sure! Let's go through both tasks: setting up repositories for the User and Post entities, and implementing the user follow functionality in your Spring Boot application.
+1. Setting Up Repositories
+
+In Spring Data JPA, you'll create interfaces for your data repositories, which extend the JpaRepository interface. This allows you to perform CRUD operations (Create, Read, Update, Delete) easily.
+a. User Repository
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUsername(String username);
+}
+
+b. Post Repository
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PostRepository extends JpaRepository<Post, Long> {
+}
+
+2. Implementing User Follow Functionality
+
+To implement follow functionality, we'll modify the User entity to allow for following other users. We'll create a many-to-many relationship to represent this.
+a. Update User Entity
+
+Make sure the User entity can have followers and follow other users.
+
+java
+
+package com.example.socialmedia.model;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String username;
+    private String password;
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_followings",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "following_id")
+    )
+    private Set<User> following = new HashSet<>();
+
+    // Getters and setters
+}
+
+b. Add Follow and Unfollow Methods in UserService
+
+Now you need to implement the logic for following and unfollowing users in a service class.
+
+java
+
+package com.example.socialmedia.service;
+
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Transactional
+    public void followUser(Long followerId, Long followingId) {
+        User follower = userRepository.findById(followerId).orElseThrow(() -> new RuntimeException("User not found"));
+        User following = userRepository.findById(followingId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        follower.getFollowing().add(following);
+        userRepository.save(follower); // Save follower with updated following list
+    }
+
+    @Transactional
+    public void unfollowUser(Long followerId, Long followingId) {
+        User follower = userRepository.findById(followerId).orElseThrow(() -> new RuntimeException("User not found"));
+        User following = userRepository.findById(followingId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        follower.getFollowing().remove(following);
+        userRepository.save(follower); // Save follower with updated following list
+    }
+
+    public Set<User> getFollowing(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")).getFollowing();
+    }
+}
+
+c. Create Follow and Unfollow Endpoints in UserController
+
+Finally, create REST endpoints to handle the follow and unfollow requests.
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/{followerId}/follow/{followingId}")
+    public ResponseEntity<?> followUser(@PathVariable Long followerId, @PathVariable Long followingId) {
+        userService.followUser(followerId, followingId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{followerId}/unfollow/{followingId}")
+    public ResponseEntity<?> unfollowUser(@PathVariable Long followerId, @PathVariable Long followingId) {
+        userService.unfollowUser(followerId, followingId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{userId}/following")
+    public ResponseEntity<?> getFollowing(@PathVariable Long userId) {
+        return ResponseEntity.ok(userService.getFollowing(userId));
+    }
+}
+
+Summary
+
+    Repositories: We established separate repositories for the User and Post entities, enabling easy CRUD operations.
+    User Follow Functionality: We enhanced the User entity to allow a many-to-many relationship for followers, added methods in the service class to follow/unfollow users, and exposed REST endpoints to handle these actions.
+
+With this setup, users in your application can follow and unfollow each other, giving your social media application a fundamental social interaction mechanism. You may want to enhance this further by adding error handling, notifications, or other features based on your application's requirements.
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+In my application - i prefer to work with username instead of id ( i mean - don't use id in dto )
+
+If you prefer to work with usernames instead of user IDs in your application’s DTOs (Data Transfer Objects), you can adjust the design accordingly. This involves creating DTOs that use usernames for follow/unfollow actions as well as for retrieving following lists.
+
+Here’s how to implement this approach:
+1. Modify the User DTO
+
+Create a UserDTO class to represent users without exposing the underlying ID.
+
+java
+
+package com.example.socialmedia.dto;
+
+public class UserDTO {
+    private String username;
+
+    // Constructor
+    public UserDTO(String username) {
+        this.username = username;
+    }
+
+    // Getter
+    public String getUsername() {
+        return username;
+    }
+
+    // Setter
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}
+
+2. Update UserService to Use Usernames
+
+Modify the service methods to find users by usernames instead of IDs.
+
+java
+
+package com.example.socialmedia.service;
+
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Transactional
+    public void followUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername);
+        User following = userRepository.findByUsername(followingUsername);
+
+        if (follower == null || following == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        follower.getFollowing().add(following);
+        userRepository.save(follower);
+    }
+
+    @Transactional
+    public void unfollowUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername);
+        User following = userRepository.findByUsername(followingUsername);
+
+        if (follower == null || following == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        follower.getFollowing().remove(following);
+        userRepository.save(follower);
+    }
+
+    public Set<UserDTO> getFollowing(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+        Set<UserDTO> followingDTOs = new HashSet<>();
+        for (User followedUser : user.getFollowing()) {
+            followingDTOs.add(new UserDTO(followedUser.getUsername()));
+        }
+        return followingDTOs;
+    }
+}
+
+3. Update the UserController to Use DTOs
+
+Modify the controller to accept usernames in the endpoints.
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.dto.UserDTO;
+import com.example.socialmedia.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/{followerUsername}/follow/{followingUsername}")
+    public ResponseEntity<?> followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
+        userService.followUser(followerUsername, followingUsername);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{followerUsername}/unfollow/{followingUsername}")
+    public ResponseEntity<?> unfollowUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
+        userService.unfollowUser(followerUsername, followingUsername);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{username}/following")
+    public ResponseEntity<Set<UserDTO>> getFollowing(@PathVariable String username) {
+        Set<UserDTO> following = userService.getFollowing(username);
+        return ResponseEntity.ok(following);
+    }
+}
+
+Summary
+
+    UserDTO: A Data Transfer Object for users that contains only the username.
+    UserService: Modified service methods to find users based on usernames instead of IDs.
+    UserController: Updated endpoints to handle requests using usernames.
+
+Advantages of This Approach
+
+    User-Friendly: This makes the API more intuitive for frontend developers and users since they can refer to users by their username.
+    Consistent API: It keeps the visible part of your API cleaner, especially in responses where you only show relevant user information (username).
+
+With this setup, your application can handle following and unfollowing users using usernames efficiently!
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+it would be great - if UserReposiroty in findByUsername will return Optional of User
+
+Absolutely! Using Optional<User> as the return type for the findByUsername method in the UserRepository is a good practice. It allows you to handle cases where a user might not be found more gracefully and avoids potential NullPointerExceptions.
+
+Here’s how to implement this change:
+1. Update the User Repository
+
+Modify the UserRepository to return Optional<User> for the findByUsername method:
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username); // Return Optional<User>
+}
+
+2. Update UserService to Handle Optional
+
+Next, update the UserService methods to handle the Optional<User> returned by the UserRepository. You will typically use methods like orElseThrow to throw a specific exception if a user is not found.
+
+Here’s the modified UserService:
+
+java
+
+package com.example.socialmedia.service;
+
+import com.example.socialmedia.dto.UserDTO;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Transactional
+    public void followUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername)
+                .orElseThrow(() -> new RuntimeException("Follower not found")); // Handle user not found
+        User following = userRepository.findByUsername(followingUsername)
+                .orElseThrow(() -> new RuntimeException("Following user not found")); // Handle user not found
+
+        follower.getFollowing().add(following);
+        userRepository.save(follower);
+    }
+
+    @Transactional
+    public void unfollowUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername)
+                .orElseThrow(() -> new RuntimeException("Follower not found")); // Handle user not found
+        User following = userRepository.findByUsername(followingUsername)
+                .orElseThrow(() -> new RuntimeException("Following user not found")); // Handle user not found
+
+        follower.getFollowing().remove(following);
+        userRepository.save(follower);
+    }
+
+    public Set<UserDTO> getFollowing(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found")); // Handle user not found
+
+        Set<UserDTO> followingDTOs = new HashSet<>();
+        for (User followedUser : user.getFollowing()) {
+            followingDTOs.add(new UserDTO(followedUser.getUsername()));
+        }
+        return followingDTOs;
+    }
+}
+
+Summary of Changes:
+
+    UserRepository: The findByUsername method now returns Optional<User>.
+    UserService: Each service method now uses the Optional<User> API to manage the presence or absence of users more safely.
+
+Benefits of Using Optional:
+
+    Null Safety: Promotes better handling of the absence of a value without relying on null checks.
+    Intent Communication: Makes it clear in the API contracts that a user might not be found.
+    Cleaner Code: Reduces boilerplate code for null checks, making your service methods cleaner and more readable.
+
+With these modifications, your application can deal more robustly with cases where users might not be found, while also improving the overall design of the repository layer!
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+can u also provide me auto db generation using hibernate and app.propeties
+ddl should be 'create'
+
+Certainly! To enable automatic database schema generation using Hibernate in your Spring Boot application, you can configure the application.properties file accordingly. Setting the spring.jpa.hibernate.ddl-auto property to create will ensure that the database schema is recreated from scratch each time the application starts.
+
+Here’s how to set it up step-by-step:
+1. Configure application.properties
+
+Open your application.properties file and add or modify the following properties:
+
+properties
+
+# Spring DataSource Configuration
+spring.datasource.url=jdbc:postgresql://localhost:5432/socialmedia
+spring.datasource.username=yourusername
+spring.datasource.password=yourpassword
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# JPA Configuration
+spring.jpa.hibernate.ddl-auto=create # Automatically generate the database schema on startup
+spring.jpa.show-sql=true              # Show SQL statements in the console for debugging
+spring.jpa.properties.hibernate.format_sql=true # Format the SQL for better readability
+
+# Additional JPA Properties
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+Explanation of Configuration Properties
+
+    spring.datasource.url: This specifies the JDBC URL for your PostgreSQL database. Replace yourusername, yourpassword, and localhost:5432/socialmedia according to your PostgreSQL installation.
+    spring.datasource.username: The username to connect to the database.
+    spring.datasource.password: The password for the provided username.
+    spring.datasource.driver-class-name: This should point to the PostgreSQL driver.
+    spring.jpa.hibernate.ddl-auto: Setting this property to create instructs Hibernate to drop the existing schema and create a new one on each application startup. You can also use values like update, validate, or none, depending on your needs.
+    spring.jpa.show-sql: When set to true, Hibernate will log the SQL statements it executes to the console, which can be helpful for debugging.
+    spring.jpa.properties.hibernate.format_sql: This formats the log output for SQL statements to enhance readability.
+    spring.jpa.database-platform: Specifies the database platform for PostgreSQL.
+
+2. Ensure Dependencies are Included
+
+Make sure you have included the necessary dependencies in your pom.xml if you are using Maven. Here's an example of the JPA and PostgreSQL dependencies:
+
+xml
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!-- Other dependencies -->
+</dependencies>
+
+3. Running Your Application
+
+When you run your Spring Boot application, Hibernate will connect to the PostgreSQL database using the provided credentials and automatically generate the necessary tables based on your entity classes. Since you set ddl-auto to create, any existing tables will be dropped and recreated.
+Important Note
+
+Using create for ddl-auto is useful during development, but it is not recommended for production environments as it can lead to data loss. In production, consider using update, which modifies the database schema while preserving existing data, or manage migrations using a tool like Flyway or Liquibase for better control.
+Conclusion
+
+This configuration allows Hibernate to automatically handle database schema creation on application startup, simplifying the development process while you build your Spring Boot application. Feel free to ask if you have any further questions or need additional assistance!
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+also i need implementation for this : The application should allow users to create and view posts, follow other users, and like posts.
+
+Sure! To implement a simple social media application where users can create and view posts, follow other users, and like posts using Spring Boot, Hibernate, and PostgreSQL, we will set up the models, repositories, services, and controllers for these functionalities. Below is a comprehensive walkthrough to achieve these features.
+1. Define Entity Classes
+
+First, we need to define our entity classes: User, Post, and Like.
+a. User Entity
+
+java
+
+package com.example.socialmedia.model;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String username;
+    private String password;
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_followings",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "following_id")
+    )
+    private Set<User> following = new HashSet<>();
+
+    @OneToMany(mappedBy = "author")
+    private Set<Post> posts = new HashSet<>();
+
+    // Getters and setters
+}
+
+b. Post Entity
+
+java
+
+package com.example.socialmedia.model;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+    private String body;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User author;
+
+    @OneToMany(mappedBy = "post")
+    private Set<Like> likes = new HashSet<>();
+
+    // Getters and setters
+}
+
+c. Like Entity
+
+java
+
+package com.example.socialmedia.model;
+
+import javax.persistence.*;
+
+@Entity
+public class Like {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
+
+    // Getters and setters
+}
+
+2. Create Repositories
+
+Next, we need to create repositories for the User, Post, and Like entities.
+a. User Repository
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username);
+}
+
+b. Post Repository
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PostRepository extends JpaRepository<Post, Long> {
+}
+
+c. Like Repository
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.Like;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface LikeRepository extends JpaRepository<Like, Long> {
+    Long countByPostId(Long postId);
+}
+
+3. Create Services
+
+Now, let's implement the services that will contain the business logic.
+a. User Service
+
+java
+
+package com.example.socialmedia.service;
+
+import com.example.socialmedia.dto.UserDTO;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    public void addUser(User user) {
+        userRepository.save(user);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Transactional
+    public void followUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername)
+                .orElseThrow(() -> new RuntimeException("Follower not found"));
+        User following = userRepository.findByUsername(followingUsername)
+                .orElseThrow(() -> new RuntimeException("Following user not found"));
+
+        follower.getFollowing().add(following);
+        userRepository.save(follower);
+    }
+
+    @Transactional
+    public void unfollowUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername)
+                .orElseThrow(() -> new RuntimeException("Follower not found"));
+        User following = userRepository.findByUsername(followingUsername)
+                .orElseThrow(() -> new RuntimeException("Following user not found"));
+
+        follower.getFollowing().remove(following);
+        userRepository.save(follower);
+    }
+}
+
+b. Post Service
+
+java
+
+package com.example.socialmedia.service;
+
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Service
+public class PostService {
+    @Autowired
+    private PostRepository postRepository;
+
+    public void createPost(Post post) {
+        postRepository.save(post);
+    }
+
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
+
+    public Post getPostById(Long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+    }
+}
+
+c. Like Service
+
+java
+
+package com.example.socialmedia.service;
+
+import com.example.socialmedia.model.Like;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.repository.LikeRepository;
+import com.example.socialmedia.repository.UserRepository;
+import com.example.socialmedia.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+@Service
+public class LikeService {
+    @Autowired
+    private LikeRepository likeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Transactional
+    public void likePost(String username, Long postId) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        Like like = new Like();
+        like.setUser(user);
+        like.setPost(post);
+        likeRepository.save(like);
+    }
+
+    public Long countLikesForPost(Long postId) {
+        return likeRepository.countByPostId(postId);
+    }
+}
+
+4. Create Controllers
+
+Finally, create the REST controllers to expose endpoints for creating posts, following/unfollowing users, and liking posts.
+a. User Controller
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        userService.addUser(user);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{followerUsername}/follow/{followingUsername}")
+    public ResponseEntity<?> followUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
+        userService.followUser(followerUsername, followingUsername);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{followerUsername}/unfollow/{followingUsername}")
+    public ResponseEntity<?> unfollowUser(@PathVariable String followerUsername, @PathVariable String followingUsername) {
+        userService.unfollowUser(followerUsername, followingUsername);
+        return ResponseEntity.ok().build();
+    }
+}
+
+b. Post Controller
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/posts")
+public class PostController {
+    @Autowired
+    private PostService postService;
+
+    @PostMapping
+    public ResponseEntity<?> createPost(@RequestBody Post post) {
+        postService.createPost(post);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Post>> getAllPosts() {
+        List<Post> posts = postService.getAllPosts();
+        return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+        Post post = postService.getPostById(id);
+        return ResponseEntity.ok(post);
+    }
+}
+
+c. Like Controller
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.service.LikeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/likes")
+public class LikeController {
+    @Autowired
+    private LikeService likeService;
+
+    @PostMapping
+    public ResponseEntity<?> likePost(@RequestParam String username, @RequestParam Long postId) {
+        likeService.likePost(username, postId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{postId}/count")
+    public ResponseEntity<Long> countLikesForPost(@PathVariable Long postId) {
+        Long count = likeService.countLikesForPost(postId);
+        return ResponseEntity.ok(count);
+    }
+}
+
+Summary
+
+    Entities: We defined User, Post, and Like entities to represent the application's core components.
+    Repositories: We created repository interfaces for user, post, and like operations.
+    Services: Business logic was encapsulated in service classes for users, posts, and likes.
+    Controllers: RESTful controllers expose endpoints for user registration, following/unfollowing, creating/viewing posts, and liking posts.
+
+Running the Application
+
+    Ensure PostgreSQL is running and the database is created.
+    Update the application.properties file as previously discussed.
+    Run the Spring Boot application. You can use Postman or a similar tool to test the available endpoints.
+
+Additional Considerations
+
+    Validation: You can add validation to the entity classes and input data using annotations from javax.validation.
+    Exception Handling: Implement global exception handling for better error messages and responses.
+    Security: Consider adding Spring Security to handle user authentication and authorization.
+
+This implementation provides a full working framework for a social media application where users can create and view posts, follow others, and like posts. Feel free to enhance and customize the functionality further based on your specific requirements!
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+also , i wanna to create contract ( interface - impl ) for this service classes :
+
+@Service
+@RequiredArgsConstructor
+public class LikeServiceImpl {
+
+    private final LikeRepository likeRepository;
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
+
+    @Transactional
+    public void likePost(String username, Long postId) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        likeRepository.save(Like.builder()
+                .user(user)
+                .post(post)
+                .build());
+    }
+
+    public Long countLikesForPost(Long postId) {
+        return likeRepository.countByPostId(postId);
+    }
+}
+
+
+@Service
+@RequiredArgsConstructor
+public class PostServiceImpl {
+
+    private final PostRepository postRepository;
+
+    public void createPost(Post post) {
+        postRepository.save(post);
+    }
+
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
+
+    public Post getPostById(Long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+    }
+}
+
+@Service
+@RequiredArgsConstructor
+public class UserServiceImpl {
+
+    private final UserRepository userRepository;
+
+    @Transactional
+    public void followUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername)
+                .orElseThrow(() -> new RuntimeException("Follower not found"));
+        User following = userRepository.findByUsername(followingUsername)
+                .orElseThrow(() -> new RuntimeException("Following user not found"));
+
+        follower.getFollowing().add(following);
+        userRepository.save(follower);
+    }
+
+    @Transactional
+    public void unfollowUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername)
+                .orElseThrow(() -> new RuntimeException("Follower not found"));
+        User following = userRepository.findByUsername(followingUsername)
+                .orElseThrow(() -> new RuntimeException("Following user not found"));
+
+        follower.getFollowing().remove(following);
+        userRepository.save(follower);
+    }
+
+    public Set<UserDTO> getFollowing(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Set<UserDTO> followingDTOs = new HashSet<>();
+        for (User followedUser : user.getFollowing()) {
+            followingDTOs.add(UserDTO.builder()
+                    .username(followedUser.getUsername())
+                    .build());
+        }
+        return followingDTOs;
+    }
+}
+
+Certainly! To implement the contract-based design pattern in your service layer, you can create interfaces for each of your service implementations. This approach offers several benefits, including improved testability, maintainability, and flexibility in swapping implementations.
+
+Below is a step-by-step guide on how to create interfaces and implement the service classes accordingly.
+Step 1: Define Service Interfaces
+
+Create the following interfaces for your service classes:
+a. LikeService Interface
+
+java
+
+package com.example.socialmedia.service;
+
+public interface LikeService {
+    void likePost(String username, Long postId);
+    Long countLikesForPost(Long postId);
+}
+
+b. PostService Interface
+
+java
+
+package com.example.socialmedia.service;
+
+import com.example.socialmedia.model.Post;
+
+import java.util.List;
+
+public interface PostService {
+    void createPost(Post post);
+    List<Post> getAllPosts();
+    Post getPostById(Long id);
+}
+
+c. UserService Interface
+
+java
+
+package com.example.socialmedia.service;
+
+import com.example.socialmedia.dto.UserDTO;
+
+import java.util.Set;
+
+public interface UserService {
+    void followUser(String followerUsername, String followingUsername);
+    void unfollowUser(String followerUsername, String followingUsername);
+    Set<UserDTO> getFollowing(String username);
+}
+
+Step 2: Implement the Service Interfaces
+
+Now you will implement the above interfaces in their respective service classes.
+a. LikeServiceImpl
+
+java
+
+package com.example.socialmedia.service.impl;
+
+import com.example.socialmedia.model.Like;
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.LikeRepository;
+import com.example.socialmedia.repository.PostRepository;
+import com.example.socialmedia.repository.UserRepository;
+import com.example.socialmedia.service.LikeService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class LikeServiceImpl implements LikeService {
+    private final LikeRepository likeRepository;
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
+
+    @Transactional
+    @Override
+    public void likePost(String username, Long postId) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        likeRepository.save(Like.builder()
+                .user(user)
+                .post(post)
+                .build());
+    }
+
+    @Override
+    public Long countLikesForPost(Long postId) {
+        return likeRepository.countByPostId(postId);
+    }
+}
+
+b. PostServiceImpl
+
+java
+
+package com.example.socialmedia.service.impl;
+
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.repository.PostRepository;
+import com.example.socialmedia.service.PostService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class PostServiceImpl implements PostService {
+    private final PostRepository postRepository;
+
+    @Override
+    public void createPost(Post post) {
+        postRepository.save(post);
+    }
+
+    @Override
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
+
+    @Override
+    public Post getPostById(Long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+    }
+}
+
+c. UserServiceImpl
+
+java
+
+package com.example.socialmedia.service.impl;
+
+import com.example.socialmedia.dto.UserDTO;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.UserRepository;
+import com.example.socialmedia.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Set;
+
+@Service
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+
+    @Transactional
+    @Override
+    public void followUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername)
+                .orElseThrow(() -> new RuntimeException("Follower not found"));
+        User following = userRepository.findByUsername(followingUsername)
+                .orElseThrow(() -> new RuntimeException("Following user not found"));
+
+        follower.getFollowing().add(following);
+        userRepository.save(follower);
+    }
+
+    @Transactional
+    @Override
+    public void unfollowUser(String followerUsername, String followingUsername) {
+        User follower = userRepository.findByUsername(followerUsername)
+                .orElseThrow(() -> new RuntimeException("Follower not found"));
+        User following = userRepository.findByUsername(followingUsername)
+                .orElseThrow(() -> new RuntimeException("Following user not found"));
+
+        follower.getFollowing().remove(following);
+        userRepository.save(follower);
+    }
+
+    @Override
+    public Set<UserDTO> getFollowing(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Set<UserDTO> followingDTOs = new HashSet<>();
+        for (User followedUser : user.getFollowing()) {
+            followingDTOs.add(UserDTO.builder()
+                    .username(followedUser.getUsername())
+                    .build());
+        }
+        return followingDTOs;
+    }
+}
+
+Benefits of Using Interfaces for Services
+
+    Encapsulation: Interfaces define the contract for the behavior of the service layer without exposing the implementation details.
+    Decoupled Code: This practice makes the codebase more modular and allows for easier changes to implementation without affecting the clients using the service.
+    Improved Testability: You can easily mock interfaces in unit tests, making it easier to test controller and service behavior without relying on database interactions.
+    Clarity: It becomes clearer what functionalities your services provide, which aids in maintaining code quality.
+
+Step 3: Wiring in Spring Boot
+
+In your Spring application, Spring will automatically find your service implementations because they're annotated with @Service and will wire them into wherever they're needed
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+also provide me a unit tests with coverage >80%
+
+To create unit tests for the service classes in your social media application, we’ll use JUnit and Mockito. The goal is to achieve over 80% code coverage for each service implementation.
+
+Here's how to structure the unit tests and what they will cover.
+Dependencies
+
+Make sure to include the following dependencies in your pom.xml for testing:
+
+xml
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-core</artifactId>
+    <scope>test</scope>
+</dependency>
+
+1. Unit Tests for LikeServiceImpl
+LikeServiceImplTest.java
+
+java
+
+package com.example.socialmedia.service.impl;
+
+import com.example.socialmedia.model.Like;
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.LikeRepository;
+import com.example.socialmedia.repository.PostRepository;
+import com.example.socialmedia.repository.UserRepository;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.transaction.Transactional;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class LikeServiceImplTest {
+
+    @Mock
+    private LikeRepository likeRepository;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private PostRepository postRepository;
+
+    private LikeServiceImpl likeService;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        likeService = new LikeServiceImpl(likeRepository, userRepository, postRepository);
+    }
+
+    @Test
+    public void testLikePost_Success() {
+        User user = new User();
+        user.setUsername("testUser");
+
+        Post post = new Post();
+        post.setId(1L);
+
+        when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(user));
+        when(postRepository.findById(1L)).thenReturn(Optional.of(post));
+
+        likeService.likePost("testUser", 1L);
+
+        ArgumentCaptor<Like> likeCaptor = ArgumentCaptor.forClass(Like.class);
+        verify(likeRepository).save(likeCaptor.capture());
+
+        Like savedLike = likeCaptor.getValue();
+        assertEquals(user, savedLike.getUser());
+        assertEquals(post, savedLike.getPost());
+    }
+
+    @Test
+    public void testLikePost_UserNotFound() {
+        when(userRepository.findByUsername("unknownUser")).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            likeService.likePost("unknownUser", 1L);
+        });
+
+        assertEquals("User not found", exception.getMessage());
+    }
+
+    @Test
+    public void testLikePost_PostNotFound() {
+        User user = new User();
+        user.setUsername("testUser");
+
+        when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(user));
+        when(postRepository.findById(1L)).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            likeService.likePost("testUser", 1L);
+        });
+
+        assertEquals("Post not found", exception.getMessage());
+    }
+
+    @Test
+    public void testCountLikesForPost() {
+        when(likeRepository.countByPostId(1L)).thenReturn(5L);
+
+        Long count = likeService.countLikesForPost(1L);
+        assertEquals(5L, count);
+    }
+}
+
+2. Unit Tests for PostServiceImpl
+PostServiceImplTest.java
+
+java
+
+package com.example.socialmedia.service.impl;
+
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.repository.PostRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import javax.transaction.Transactional;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class PostServiceImplTest {
+
+    @Mock
+    private PostRepository postRepository;
+
+    private PostServiceImpl postService;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        postService = new PostServiceImpl(postRepository);
+    }
+
+    @Test
+    public void testCreatePost() {
+        Post post = new Post();
+        post.setTitle("Title 1");
+        post.setBody("This is post body.");
+
+        postService.createPost(post);
+
+        ArgumentCaptor<Post> postCaptor = ArgumentCaptor.forClass(Post.class);
+        verify(postRepository).save(postCaptor.capture());
+
+        Post savedPost = postCaptor.getValue();
+        assertEquals("Title 1", savedPost.getTitle());
+        assertEquals("This is post body.", savedPost.getBody());
+    }
+
+    @Test
+    public void testGetAllPosts() {
+        postService.getAllPosts();
+        verify(postRepository).findAll();
+    }
+
+    @Test
+    public void testGetPostById_Success() {
+        Post post = new Post();
+        post.setId(1L);
+
+        when(postRepository.findById(1L)).thenReturn(Optional.of(post));
+
+        Post fetchedPost = postService.getPostById(1L);
+        assertEquals(post.getId(), fetchedPost.getId());
+    }
+
+    @Test
+    public void testGetPostById_PostNotFound() {
+        when(postRepository.findById(1L)).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            postService.getPostById(1L);
+        });
+        assertEquals("Post not found", exception.getMessage());
+    }
+}
+
+3. Unit Tests for UserServiceImpl
+UserServiceImplTest.java
+
+java
+
+package com.example.socialmedia.service.impl;
+
+import com.example.socialmedia.dto.UserDTO;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import javax.transaction.Transactional;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class UserServiceImplTest {
+
+    @Mock
+    private UserRepository userRepository;
+
+    private UserServiceImpl userService;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        userService = new UserServiceImpl(userRepository);
+    }
+
+    @Test
+    public void testFollowUser_Success() {
+        User follower = new User();
+        follower.setUsername("followerUser");
+
+        User following = new User();
+        following.setUsername("followingUser");
+
+        when(userRepository.findByUsername("followerUser")).thenReturn(Optional.of(follower));
+        when(userRepository.findByUsername("followingUser")).thenReturn(Optional.of(following));
+
+        userService.followUser("followerUser", "followingUser");
+
+        assertTrue(follower.getFollowing().contains(following));
+        verify(userRepository).save(follower);
+    }
+
+    @Test
+    public void testFollowUser_FollowerNotFound() {
+        when(userRepository.findByUsername("unknownFollower")).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            userService.followUser("unknownFollower", "followingUser");
+        });
+
+        assertEquals("Follower not found", exception.getMessage());
+    }
+
+    @Test
+    public void testUnfollowUser_Success() {
+        User follower = new User();
+        follower.setUsername("followerUser");
+        Set<User> followedUsers = new HashSet<>();
+        follower.setFollowing(followedUsers);
+
+        User following = new User();
+        following.setUsername("followingUser");
+
+        followedUsers.add(following);
+
+        when(userRepository.findByUsername("followerUser")).thenReturn(Optional.of(follower));
+        when(userRepository.findByUsername("followingUser")).thenReturn(Optional.of(following));
+
+        userService.unfollowUser("followerUser", "followingUser");
+
+        assertFalse(follower.getFollowing().contains(following));
+        verify(userRepository).save(follower);
+    }
+
+    @Test
+    public void testGetFollowing() {
+        User user = new User();
+        user.setUsername("testUser");
+
+        User followedUser = new User();
+        followedUser.setUsername("followedUser");
+
+        Set<User> followedUsers = new HashSet<>();
+        followedUsers.add(followedUser);
+
+        user.setFollowing(followedUsers);
+
+        when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(user));
+
+        Set<UserDTO> followingDTOs = userService.getFollowing("testUser");
+
+        assertEquals(1, followingDTOs.size());
+        assertEquals("followedUser", followingDTOs.iterator().next().getUsername());
+    }
+
+    @Test
+    public void testGetFollowing_UserNotFound() {
+        when(userRepository.findByUsername("unknownUser")).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            userService.getFollowing("unknownUser");
+        });
+
+        assertEquals("User not found", exception.getMessage());
+    }
+}
+
+Coverage Analysis
+
+    The unit tests above cover all essential methods and provide full assertions to validate behavior.
+    Mockito is used to mock dependencies, ensuring that tests focus solely on the logic of the service being tested.
+    You can run these tests using your IDE's testing features or by running mvn test from the command line.
+
+Running the Tests
+
+    Use your IDE to run the tests directly, or run the following Maven command in your terminal:
+
+    bash
+
+    mvn test
+
+    You can check the coverage report by generating it, for example, by using the Maven Surefire Plugin alongside JaCoCo (Java Code Coverage).
+
+Conclusion
+
+These unit tests should help you achieve over 80% code coverage for your service classes while validating the functionalities of the services in your Spring Boot application effectively. Feel free to expand the tests as needed to cover edge cases!
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+also - i need tests for repository layer with this annotations
+
+@Transactional
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = TestAppConfig.class)
+
+TestAppConfig - is a class with configuration , which scans base packages and gets property of appl-test.properties. Laso provide me configuration of appl-test.properties as same , as default appl.properties - but uses in-memory db ( H2 )
+
+Sure! To set up a proper configuration for testing your repository layer using Spring's testing framework with an in-memory H2 database, we'll create a TestAppConfig class. We'll also configure application-test.properties to use H2 and write tests for the repository layer using JUnit 5 and Spring's testing annotations.
+1. Create application-test.properties
+
+This file will hold your H2 database configuration and will mimic your main application.properties but will connect to an H2 database instead.
+src/test/resources/application-test.properties
+
+properties
+
+# Spring DataSource Configuration for H2
+spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+# JPA Configuration
+spring.jpa.hibernate.ddl-auto=create
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+2. Create TestAppConfig Class
+
+Now, create the TestAppConfig class that will provide the configurations needed for the tests.
+src/test/java/com/example/socialmedia/TestAppConfig.java
+
+java
+
+package com.example.socialmedia;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@Configuration
+@PropertySource("classpath:application-test.properties")
+@ComponentScan(basePackages = "com.example.socialmedia")
+public class TestAppConfig {
+}
+
+3. Create Repository Layer Tests
+
+Now we will write tests for each of the repository classes, ensuring we use the configuration from TestAppConfig.
+a. UserRepositoryTest.java
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.User;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = TestAppConfig.class)
+@DataJpaTest
+public class UserRepositoryTest {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Test
+    @Transactional
+    @Rollback // Automatically rollback the transaction after each test
+    public void testFindByUsername() {
+        User user = new User();
+        user.setUsername("testUser");
+        user.setPassword("testPassword");
+        userRepository.save(user);
+
+        User foundUser = userRepository.findByUsername("testUser")
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        assertEquals("testUser", foundUser.getUsername());
+        assertEquals("testPassword", foundUser.getPassword());
+    }
+
+    @Test
+    @Transactional
+    @Rollback // Automatically rollback the transaction after each test
+    public void testFindByUsername_UserNotFound() {
+        assertFalse(userRepository.findByUsername("unknownUser").isPresent());
+    }
+}
+
+b. PostRepositoryTest.java
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.model.User;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = TestAppConfig.class)
+@DataJpaTest
+public class PostRepositoryTest {
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Test
+    @Transactional
+    @Rollback // Automatically rollback the transaction after each test
+    public void testSavePost() {
+        User user = new User();
+        user.setUsername("user");
+        user.setPassword("password");
+        userRepository.save(user);
+
+        Post post = new Post();
+        post.setTitle("Post Title");
+        post.setBody("Post body content.");
+        post.setAuthor(user);
+
+        postRepository.save(post);
+
+        Post foundPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        assertEquals("Post Title", foundPost.getTitle());
+        assertEquals("Post body content.", foundPost.getBody());
+        assertEquals(user, foundPost.getAuthor());
+    }
+
+    @Test
+    @Transactional
+    @Rollback // Automatically rollback the transaction after each test
+    public void testFindById_PostNotFound() {
+        assertFalse(postRepository.findById(1L).isPresent());
+    }
+}
+
+c. LikeRepositoryTest.java
+
+java
+
+package com.example.socialmedia.repository;
+
+import com.example.socialmedia.model.Like;
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.model.User;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import javax.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = TestAppConfig.class)
+@DataJpaTest
+public class LikeRepositoryTest {
+
+    @Autowired
+    private LikeRepository likeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Test
+    @Transactional
+    @Rollback // Automatically rollback the transaction after each test
+    public void testSaveLike() {
+        User user = new User();
+        user.setUsername("user");
+        user.setPassword("password");
+        userRepository.save(user);
+
+        Post post = new Post();
+        post.setTitle("Post Title");
+        post.setBody("Post body content.");
+        post.setAuthor(user);
+        postRepository.save(post);
+
+        Like like = new Like();
+        like.setUser(user);
+        like.setPost(post);
+        likeRepository.save(like);
+
+        assertEquals(1, likeRepository.countByPostId(post.getId()));
+    }
+
+    @Test
+    @Transactional
+    @Rollback // Automatically rollback the transaction after each test
+    public void testCountLikesForPost() {
+        User user = new User();
+        user.setUsername("user");
+        user.setPassword("password");
+        userRepository.save(user);
+
+        Post post = new Post();
+        post.setTitle("Post Title");
+        post.setBody("Post body content.");
+        post.setAuthor(user);
+        postRepository.save(post);
+
+        Like like = new Like();
+        like.setUser(user);
+        like.setPost(post);
+        likeRepository.save(like);
+
+        Long count = likeRepository.countByPostId(post.getId());
+        assertEquals(1L, count);
+    }
+}
+
+4. Running the Tests
+
+You can run your tests using your IDE or through Maven in the terminal:
+
+bash
+
+mvn test
+
+Explanation of the Test Setup:
+
+    Annotations:
+        @ExtendWith(SpringExtension.class): Enables Spring support for JUnit 5 through the Spring TestContext Framework.
+        @ContextConfiguration(classes = TestAppConfig.class): Loads the specified configuration when the tests run.
+        @DataJpaTest: Focuses on JPA components and configures an in-memory database.
+        @Transactional: Each test method runs within a transaction that rolls back after the test, keeping the tests isolated from each other.
+        @Rollback: This annotation is optional here since the @Transactional already implies rollback, but it's good to mention for clarity.
+
+    In-Memory Database: The tests run against an H2 database in memory. It allows you to verify that your repository logic works without affecting your actual database.
+
+    Assertions: Standard JUnit assertions are used to verify that the expected outcomes are correct.
+
+Conclusion
+
+Now you have a complete setup for testing the repository layer using Spring Boot with an in-memory database (H2) and full configuration for the test environment. These tests encapsulate basic CRUD operations while ensuring your repositories are functioning correctly. Adjust the test cases as needed based on the specifics of your application and requirements!
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+Finally , I need an integrational tests ( should name [className]ControllerIT )
+
+Sure! Integration tests help ensure that various parts of your application (i.e., the controller, service, and repository layers) work together as expected. For your Spring Boot application, we can create integration tests for the controller layer, keeping them separate from unit tests.
+1. Setup for Integration Tests
+
+First, ensure you have the necessary dependencies in your pom.xml to facilitate integration testing, including Spring Boot test starters and H2 (if you plan to use an in-memory database). If you've already added spring-boot-starter-test, you're good to go.
+2. Create Integration Test Classes
+
+For each controller, you will create an integration test class named [ClassName]ControllerIT. Below are examples for the UserController, PostController, and LikeController.
+a. UserControllerIT.java
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class UserControllerIT {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    private User testUser;
+
+    @BeforeEach
+    public void setup() {
+        userRepository.deleteAll();
+
+        testUser = new User();
+        testUser.setUsername("testUser");
+        testUser.setPassword("testPassword");
+
+        userRepository.save(testUser);
+    }
+
+    @Test
+    public void testFollowUser() throws Exception {
+        User followUser = new User();
+        followUser.setUsername("followUser");
+        followUser.setPassword("followUserPassword");
+        userRepository.save(followUser);
+
+        mockMvc.perform(post("/api/users/{followerUsername}/follow/{followingUsername}", "testUser", "followUser"))
+                .andExpect(status().isOk());
+
+        // Verify that the user is following the other user
+        User foundFollower = userRepository.findByUsername("testUser").orElseThrow();
+        assertTrue(foundFollower.getFollowing().contains(followUser));
+    }
+
+    @Test
+    public void testUnfollowUser() throws Exception {
+        User followUser = new User();
+        followUser.setUsername("followUser");
+        followUser.setPassword("followUserPassword");
+        userRepository.save(followUser);
+
+        // Follow the user first
+        mockMvc.perform(post("/api/users/{followerUsername}/follow/{followingUsername}", "testUser", "followUser"))
+                .andExpect(status().isOk());
+
+        // Now unfollow
+        mockMvc.perform(delete("/api/users/{followerUsername}/unfollow/{followingUsername}", "testUser", "followUser"))
+                .andExpect(status().isOk());
+
+        // Verify that the user is no longer following
+        User foundFollower = userRepository.findByUsername("testUser").orElseThrow();
+        assertFalse(foundFollower.getFollowing().contains(followUser));
+    }
+
+    @Test
+    public void testGetFollowing() throws Exception {
+        User followUser = new User();
+        followUser.setUsername("followUser");
+        followUser.setPassword("followUserPassword");
+        userRepository.save(followUser);
+
+        mockMvc.perform(post("/api/users/{followerUsername}/follow/{followingUsername}", "testUser", "followUser"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/users/{username}/following", "testUser"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].username").value("followUser"));
+    }
+}
+
+b. PostControllerIT.java
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.PostRepository;
+import com.example.socialmedia.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class PostControllerIT {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    private User testUser;
+
+    @BeforeEach
+    public void setup() {
+        // Clean repositories
+        userRepository.deleteAll();
+        postRepository.deleteAll();
+
+        testUser = new User();
+        testUser.setUsername("testUser");
+        testUser.setPassword("testPassword");
+        userRepository.save(testUser);
+    }
+
+    @Test
+    public void testCreatePost() throws Exception {
+        Post post = new Post();
+        post.setTitle("Post Title");
+        post.setBody("Post body content.");
+        post.setAuthor(testUser);
+
+        mockMvc.perform(post("/api/posts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(post)))
+                .andExpect(status().isOk());
+
+        assertEquals(1, postRepository.count());
+    }
+
+    @Test
+    public void testGetPostById() throws Exception {
+        Post post = new Post();
+        post.setTitle("Post Title");
+        post.setBody("Post body content.");
+        post.setAuthor(testUser);
+        postRepository.save(post);
+
+        mockMvc.perform(get("/api/posts/{id}", post.getId()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.title").value("Post Title"));
+    }
+
+    @Test
+    public void testGetAllPosts() throws Exception {
+        mockMvc.perform(get("/api/posts"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+}
+
+c. LikeControllerIT.java
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.model.Like;
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.LikeRepository;
+import com.example.socialmedia.repository.PostRepository;
+import com.example.socialmedia.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class LikeControllerIT {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private LikeRepository likeRepository;
+
+    private User testUser;
+    private Post testPost;
+
+    @BeforeEach
+    public void setup() {
+        userRepository.deleteAll();
+        postRepository.deleteAll();
+        likeRepository.deleteAll();
+
+        testUser = new User();
+        testUser.setUsername("testUser");
+        testUser.setPassword("testPassword");
+        userRepository.save(testUser);
+
+        testPost = new Post();
+        testPost.setTitle("Post Title");
+        testPost.setBody("Post body content.");
+        testPost.setAuthor(testUser);
+        postRepository.save(testPost);
+    }
+
+    @Test
+    public void testLikePost() throws Exception {
+        mockMvc.perform(post("/api/likes")
+                .param("username", "testUser")
+                .param("postId", String.valueOf(testPost.getId())))
+                .andExpect(status().isOk());
+
+        assertEquals(1, likeRepository.countByPostId(testPost.getId()));
+    }
+}
+
+Explanation of Integration Tests
+
+    Annotations:
+        @SpringBootTest: Indicates that this is a Spring Boot test that will load the full application context.
+        @AutoConfigureMockMvc: Automatically configures MockMvc which allows us to perform HTTP requests in our tests.
+
+    Setup Method:
+        The setup() method is annotated with @BeforeEach, meaning it will be executed before each test method. This keeps our tests isolated and consistent.
+
+    Tests:
+        Each test method uses MockMvc to execute HTTP requests and verifies the results, including the status and content of the response.
+        We utilize assertions to check that the behavior of the application meets our expectations.
+
+Running the Integration Tests
+
+You can run your integration tests using your IDE or via Maven through the command line:
+
+bash
+
+mvn test
+
+Conclusion
+
+You now have a complete set of integration tests for the controller layer of your social media application, ensuring that the various components interact correctly. You can expand these tests further to cover more edge cases and scenarios as needed!
+Full responsibility for code correctness, security and licensing lies solely with the user, not with DIAL platform or LLM vendor.
+but also , don't forget about @Transactional
+In addition, i want to use TestContainerConfig ( PostgreSQLContainer ) for this tests and add to this test layer
+
+Certainly! To integrate Testcontainers for integration testing with PostgreSQL in your Spring Boot application, you will adjust your configuration to use @Transactional, and set up a Testcontainers configuration class that defines a PostgreSQL container.
+1. Add Dependencies for Testcontainers
+
+Make sure you have the following dependencies in your pom.xml to support Testcontainers:
+
+xml
+
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>1.17.3</version> <!-- Update to the latest version -->
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>1.17.3</version> <!-- Update to the latest version -->
+    <scope>test</scope>
+</dependency>
+
+2. Create TestContainerConfig
+
+Next, create a configuration class that will set up the PostgreSQL container for your tests.
+TestContainerConfig.java
+
+java
+
+package com.example.socialmedia;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.testcontainers.containers.PostgreSQLContainer;
+
+@TestConfiguration
+public class TestContainerConfig {
+
+    @Bean
+    @Primary
+    public PostgreSQLContainer<?> postgresContainer() {
+        PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:latest")
+                .withDatabaseName("testdb")
+                .withUsername("test")
+                .withPassword("test");
+        container.start();
+        return container;
+    }
+}
+
+3. Update Integration Tests to Use Testcontainers and Transactions
+
+Now, update your integration test classes to use @Transactional and also refer to TestContainerConfig.
+Updated UserControllerIT.java
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.context.ContextConfiguration;
+
+import javax.transaction.Transactional;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ContextConfiguration(classes = {TestAppConfig.class, TestContainerConfig.class})
+public class UserControllerIT {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    private User testUser;
+
+    @BeforeEach
+    public void setup() {
+        userRepository.deleteAll();
+
+        testUser = new User();
+        testUser.setUsername("testUser");
+        testUser.setPassword("testPassword");
+
+        userRepository.save(testUser);
+    }
+
+    @Test
+    @Transactional
+    public void testFollowUser() throws Exception {
+        User followUser = new User();
+        followUser.setUsername("followUser");
+        followUser.setPassword("followUserPassword");
+        userRepository.save(followUser);
+
+        mockMvc.perform(post("/api/users/{followerUsername}/follow/{followingUsername}", "testUser", "followUser"))
+                .andExpect(status().isOk());
+
+        // Verify that the user is following the other user
+        User foundFollower = userRepository.findByUsername("testUser").orElseThrow();
+        assertTrue(foundFollower.getFollowing().contains(followUser));
+    }
+
+    @Test
+    @Transactional
+    public void testUnfollowUser() throws Exception {
+        User followUser = new User();
+        followUser.setUsername("followUser");
+        followUser.setPassword("followUserPassword");
+        userRepository.save(followUser);
+
+        // Follow the user first
+        mockMvc.perform(post("/api/users/{followerUsername}/follow/{followingUsername}", "testUser", "followUser"))
+                .andExpect(status().isOk());
+
+        // Now unfollow
+        mockMvc.perform(delete("/api/users/{followerUsername}/unfollow/{followingUsername}", "testUser", "followUser"))
+                .andExpect(status().isOk());
+
+        // Verify that the user is no longer following
+        User foundFollower = userRepository.findByUsername("testUser").orElseThrow();
+        assertFalse(foundFollower.getFollowing().contains(followUser));
+    }
+
+    @Test
+    @Transactional
+    public void testGetFollowing() throws Exception {
+        User followUser = new User();
+        followUser.setUsername("followUser");
+        followUser.setPassword("followUserPassword");
+        userRepository.save(followUser);
+
+        mockMvc.perform(post("/api/users/{followerUsername}/follow/{followingUsername}", "testUser", "followUser"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/users/{username}/following", "testUser"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].username").value("followUser"));
+    }
+}
+
+Updated PostControllerIT.java
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.PostRepository;
+import com.example.socialmedia.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.context.ContextConfiguration;
+
+import javax.transaction.Transactional;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ContextConfiguration(classes = {TestAppConfig.class, TestContainerConfig.class})
+public class PostControllerIT {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    private User testUser;
+
+    @BeforeEach
+    public void setup() {
+        // Clean repositories
+        userRepository.deleteAll();
+        postRepository.deleteAll();
+
+        testUser = new User();
+        testUser.setUsername("testUser");
+        testUser.setPassword("testPassword");
+        userRepository.save(testUser);
+    }
+
+    @Test
+    @Transactional
+    public void testCreatePost() throws Exception {
+        Post post = new Post();
+        post.setTitle("Post Title");
+        post.setBody("Post body content.");
+        post.setAuthor(testUser);
+
+        mockMvc.perform(post("/api/posts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(post)))
+                .andExpect(status().isOk());
+
+        assertEquals(1, postRepository.count());
+    }
+
+    @Test
+    @Transactional
+    public void testGetPostById() throws Exception {
+        Post post = new Post();
+        post.setTitle("Post Title");
+        post.setBody("Post body content.");
+        post.setAuthor(testUser);
+        postRepository.save(post);
+
+        mockMvc.perform(get("/api/posts/{id}", post.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("Post Title"));
+    }
+
+    @Test
+    @Transactional
+    public void testGetAllPosts() throws Exception {
+        mockMvc.perform(get("/api/posts"))
+                .andExpect(status().isOk());
+    }
+}
+
+Updated LikeControllerIT.java
+
+java
+
+package com.example.socialmedia.controller;
+
+import com.example.socialmedia.model.Like;
+import com.example.socialmedia.model.Post;
+import com.example.socialmedia.model.User;
+import com.example.socialmedia.repository.LikeRepository;
+import com.example.socialmedia.repository.PostRepository;
+import com.example.socialmedia.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.context.ContextConfiguration;
+
+import javax.transaction.Transactional;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ContextConfiguration(classes = {TestAppConfig.class, TestContainerConfig.class})
+public class LikeControllerIT {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private LikeRepository likeRepository;
+
+    private User testUser;
+    private Post testPost;
+
+    @BeforeEach
+    public void setup() {
+        userRepository.deleteAll();
+        postRepository.deleteAll();
+        likeRepository.deleteAll();
+
+        testUser = new User();
+        testUser.setUsername("testUser");
+        testUser.setPassword("testPassword");
+        userRepository.save(testUser);
+
+        testPost = new Post();
+        testPost.setTitle("Post Title");
+        testPost.setBody("Post body content.");
+        testPost.setAuthor(testUser);
+        postRepository.save(testPost);
+    }
+
+    @Test
+    @Transactional
+    public void testLikePost() throws Exception {
+        mockMvc.perform(post("/api/likes")
+                .param("username", "testUser")
+                .param("postId", String.valueOf(testPost.getId())))
+                .andExpect(status().isOk());
+
+        assertEquals(1, likeRepository.countByPostId(testPost.getId()));
+    }
+}
+
+Explanation of Changes
+
+    Testcontainers: The PostgreSQL container is started when the tests run, ensuring that each integration test works against a fresh instance of a PostgreSQL database.
+
+    @Transactional: Each test method is annotated with @Transactional, which means changes made during a test (such as saving entities) will be rolled back after each test is executed.
+
+    Configuration: The integration test classes are configured to include both TestAppConfig and TestContainerConfig, so they can utilize the PostgreSQL container while benefiting from any other configuration you've set up.
+
+Running the Tests
+
+To run the integration tests, simply execute the following command in your terminal:
+
+bash
+
+mvn test
+
+Conclusion
+
+With the integration tests set up using Testcontainers, you are now able to run your tests against an actual PostgreSQL database environment. This ensures that your tests can verify the correct behavior of the entire application stack, including interactions with the database! Adjust and expand your tests based on additional scenarios and functionalities as needed.
