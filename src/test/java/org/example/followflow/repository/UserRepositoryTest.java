@@ -6,25 +6,21 @@ import org.example.followflow.entity.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Transactional
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestAppConfig.class)
-@DataJpaTest
 public class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
 
     @Test
-    @Transactional
-    @Rollback
-    public void testFindByUsername() {
+    void testFindByUsername() {
         User user = new User();
         user.setUsername("testUser");
         user.setPassword("testPassword");
@@ -38,9 +34,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @Transactional
-    @Rollback
-    public void testFindByUsername_UserNotFound() {
+    void testFindByUsername_UserNotFound() {
         assertFalse(userRepository.findByUsername("unknownUser").isPresent());
     }
 }
