@@ -16,7 +16,10 @@ public class TestContainerConfig {
     @Container
     private static final PostgreSQLContainer<?> POSTGRES =
             new PostgreSQLContainer<>("postgres:16")
-                    .withReuse(true);
+                    .withDatabaseName("testdb") // Specify database name for tests
+                    .withUsername("test")
+                    .withPassword("test")
+                    .withReuse(true); // Enable reuse of container across tests
 
     static {
         POSTGRES.start();
